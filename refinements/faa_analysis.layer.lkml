@@ -1,4 +1,6 @@
 include: "//faa/files/*.lkml"
+
+# Add analysis to the flights view
 view: +flights {
   # final: yes
   dimension: aircraft_age {type:number  sql:${dep_year}-${aircraft.year_built};;}

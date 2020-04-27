@@ -15,7 +15,7 @@ explore: +flights {
     }
 }
 
-# Create a simplified aircraft Explore
+# Simplify the aircraft Explore
 explore: +aircraft {
   label: "Aircraft Simplified"
   fields: [aircraft.aircraft_serial, aircraft.name, aircraft.count]
@@ -32,7 +32,7 @@ view: +carriers {
   dimension: code {primary_key:yes}
 }
 
-# Add useful fields to the flights view
+# Add some useful fields to the flights view
 view: +flights {
   measure: total_seats {
     type: sum
