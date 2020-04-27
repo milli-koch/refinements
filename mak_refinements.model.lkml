@@ -1,3 +1,3 @@
 connection: "lookerdata_standard_sql"
-include: "refinements.lkml"
-include: "extends.lkml"
+include: "/refinements/*.lkml"
+# include: "extends.lkml"

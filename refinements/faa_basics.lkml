@@ -1,7 +1,7 @@
 include: "//faa/files/*.lkml"
 
 
-# add joins to the explore
+# Add joins to the flights Explore
 explore: +flights {
   join: carriers {
     foreign_key: carrier
@@ -15,7 +15,13 @@ explore: +flights {
     }
 }
 
-# set some primary keys
+# Create a simplified aircraft Explore
+explore: +aircraft {
+  label: "Aircraft Simplified"
+  fields: [aircraft.aircraft_serial, aircraft.name, aircraft.count]
+}
+
+# Set some primary keys
 view: +aircraft {
   dimension: tail_num {primary_key:yes}
 }
@@ -34,29 +40,8 @@ view: +flights {
   }
 
   measure: flights.total_distance {
+    hidden: yes
     type: sum
     sql: ${distance} ;;
-  }
-
-  dimension: aircraft_age {type:number  sql:${dep_year}-${aircraft.year_built};;}
-
-  dimension: aircraft_age_tiered {
-    type:tier
-    sql: ${aircraft_age} ;;
-    tiers: [5, 12]
-  }
-
-  dimension: timeliness {
-    case: {
-      when: { label: "Very Late" sql: ${arr_delay} > 60 ;;}
-      when: { label: "Late" sql: ${arr_delay} > 20 ;;}
-      when: { label: "Ontime" sql: ${arr_delay} <= 20 ;;}
-    }
-  }
-
-  dimension: distance_tiered {
-    type: tier
-    sql: ${distance} ;;
-    tiers: [500,1300]
   }
 }
